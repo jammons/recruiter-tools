@@ -1,0 +1,88 @@
+{% extends "bootstrap/base.html" %}
+
+{% block head %}
+{{super()}}
+  <!-- Custom fonts for this template-->
+  <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+
+  <!-- Page level plugin CSS-->
+  <link href="vendor/datatables/dataTables.bootstrap4.css" rel="stylesheet">
+
+  <!-- Custom styles for this template-->
+  <link href="css/sb-admin.css" rel="stylesheet">
+{% endblock head %}
+
+{% block title %}Recruiting Tools{% endblock %}
+
+{% block body_attribs %}
+id="page-top"
+{% endblock body_attribs %}
+
+{% block content %}
+  <nav class="navbar navbar-expand navbar-dark bg-dark static-top">
+
+    <a class="navbar-brand mr-1" href="/">Recruiter Tools</a>
+
+    <button class="btn btn-link btn-sm text-white order-1 order-sm-0" id="sidebarToggle" href="#">
+      <i class="fas fa-bars"></i>
+    </button>
+  </nav>
+
+  <div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul class="sidebar navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" href="/">
+          <i class="fas fa-fw fa-table"></i>
+          <span>Interview Counts</span></a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link" href="/admin">
+          <i class="fas fa-fw fa-folder"></i>
+          <span>Admin</span>
+        </a>
+      </li>
+    </ul>
+
+    <div id="content-wrapper">
+
+      <div class="container-fluid">
+        <div class="card-header">
+          <i class="fas fa-table"></i>
+          Interview Counts from:
+          <span class="font-weight-bold">{{ starts_after.strftime('%A %m/%d at %l:%M%p') }}</span> to <span class="font-weight-bold">{{ ends_before.strftime('%A %m/%d at %l:%M%p') }}</span>
+        </div>
+        <div class="card mb-3">
+          <div class="card-body">
+            <div class="table-responsive">
+              <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                  <th>Name</th>
+                  <th>Interview Count</th>
+                </thead>
+                {% for name, count in interviewers.items() %}
+                <tr><th>{{ name }}</th><td>{{ count }}</td></tr>
+                {% endfor %}
+              </table>
+            </div>
+            <div class="card-footer small text-muted">Updated At: {{ today.strftime('%A %m/%d at %l:%M%P') }}</div>
+          </div>
+        </div>
+      </div>
+      <!-- /.container-fluid -->
+
+      <!-- Sticky Footer -->
+      <footer class="sticky-footer">
+        <div class="container my-auto">
+          <div class="copyright text-center my-auto">
+            <span>Awesome Tools for Awesome Recruiters</span>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <!-- /.content-wrapper -->
+  </div>
+  <!-- /#wrapper -->
+
+{% endblock content %}
